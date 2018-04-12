@@ -14,7 +14,7 @@ class ReadingList extends Component {
 							<h3>{book.title}</h3>
 							<p>{book.authors}</p>
 
-							<select onChange={() => (this.props.selectShelf(book.shelf))}>
+							<select onChange={() => (this.props.selectShelf(book,  book.shelf))}>
 								{options.map(option => {
 									return <option value={this.props.shelf} key={option} >{option}</option>
 								})}

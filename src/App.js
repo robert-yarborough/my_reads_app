@@ -12,7 +12,7 @@ class App extends Component {
 
 		this.state = {
 			books: [],
-			shelf: []
+			shelf: ['currentlyReading', 'wantToRead', 'read']
 
 		};
 
@@ -42,7 +42,22 @@ class App extends Component {
 	};*/
 
 	onUpdate = (book, shelf) => {
+		BooksAPI.update(book,  shelf)
+			.then((shelf) => {
+				this.setState((currentState) => {
+					//this conditional is funky, but I'm testing for data state
+					if (currentState.books.filter((book) => ({
+							book: book.shelf
+						})) === currentState.shelf.filter((s) => ({
+							shelf: s
+						}))){
+						console.log('give me this shelf', shelf)
+					}else{
+						console.log('give me all shelves', shelf)
+					}
+				})
 
+			})
 	};
 
 
@@ -55,7 +70,7 @@ class App extends Component {
 				<CurrentReads />
 				<DesirableReads />
 				<ReadingList books={this.state.books}
-							 selectShelf={(shelf) => {this.onUpdate(shelf)}} />
+							 selectShelf={(book, shelf) => {this.onUpdate(book, shelf)}} />
 			</div>);
 	}
 }
