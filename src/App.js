@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import * as BooksAPI from './api/BooksAPI';
-import CurrentReads from './components/CurrentReads';
-import DesirableReads from './components/DesirableReads';
-import ReadingList from './components/ReadingList';
+import BookList from './components/BookList';
 
 
 
@@ -11,52 +9,37 @@ class App extends Component {
 		super(props);
 
 		this.state = {
-			books: [],
-			shelf: ['currentlyReading', 'wantToRead', 'read']
-
+			books: []
 		};
 
-		//this.logger = this.logger.bind(this);
 		this.onUpdate = this.onUpdate.bind(this);
 	}
 
-	//get books from api
+	//get books from api on document load
 	componentDidMount(){
 		BooksAPI.getAll().then((books) => {
-			this.setState(()=> ({
-				books
-			}));
+			this.setState(() => ({ books }));
 		});
 	}
 
 
-	/*logger(){
-		console.log(this.state.books)
-	}*/
-
-	//write a function that handles selection of shelves
-	/*onUpdate = (shelf) => {
-		this.setState((currentState) => ({
-			shelf: currentState.shelf.concat(shelf)
-		}));
-	};*/
-
-	onUpdate = (book, shelf) => {
-		BooksAPI.update(book,  shelf)
+	//update book.id and book.shelf with new book id and shelf passed by event.target.value
+	onUpdate = (newBook, newShelf) => {
+		//console.log(book.id, currentShelf);
+		BooksAPI.update(newBook, newShelf)
 			.then((shelf) => {
-				this.setState((currentState) => {
-					//this conditional is funky, but I'm testing for data state
-					if (currentState.books.filter((book) => ({
-							book: book.shelf
-						})) === currentState.shelf.filter((s) => ({
-							shelf: s
-						}))){
-						console.log('give me this shelf', shelf)
-					}else{
-						console.log('give me all shelves', shelf)
-					}
-				})
+				const { books } = this.state;
+				//set shelf for new or updated book
+				newBook.shelf = newShelf;
+				console.log('shelf', shelf, 'newShelf', newShelf);
+				//get list of books without updated or new book
+				let updatedBooks = books.filter((book) => (book.id !== newShelf.id));
+				//add book to array, and set new state
+				updatedBooks.push(newBook);
 
+				this.setState((currentState) => ({
+					books: currentState.books.concat(newBook)
+				}));
 			})
 	};
 
@@ -64,13 +47,11 @@ class App extends Component {
 
 
 	render(){
+		const { books } = this.state;
 		return (
 			<div className=''>
 				<h1 className='span_2_of_12'>MyReads</h1>
-				<CurrentReads />
-				<DesirableReads />
-				<ReadingList books={this.state.books}
-							 selectShelf={(book, shelf) => {this.onUpdate(book, shelf)}} />
+				<BookList books={books} onUpdate={this.onUpdate} />
 			</div>);
 	}
 }
