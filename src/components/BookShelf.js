@@ -7,13 +7,12 @@ class BookShelf extends Component{
 		const { books, onUpdate } = this.props;
 		return (
 			<div>
-				{books.map((book, index) => (
+				{books.map((book) => (
 					<Book
-						key={ index }
+						key={ book.id }
 						book={ book }
 						books={ books }
-						onUpdate={ onUpdate }
-					/>
+						onUpdate={ onUpdate } />
 				))}
 			</div>
 		)

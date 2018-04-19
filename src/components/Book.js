@@ -8,7 +8,8 @@ class Book extends Component{
 		const title = book.title ? book.title : "No title available";
 
 		return (
-			<div>
+			<div key={book.id}>
+				{console.log('book id', book.id)}
 				<img className='' style={{ backgroundImage: `url(${book.imageLinks.thumbnail})`}} alt='img'/>
 				<div className="book-title">{ title }</div>
 				{ /* Check for authors and render each on separate line if exist*/

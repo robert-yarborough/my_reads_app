@@ -23,22 +23,20 @@ class App extends Component {
 	}
 
 
-	//update book.id and book.shelf with new book id and shelf passed by event.target.value
+	// update book.id and book.shelf with new book id and shelf passed by event.target.value
 	onUpdate = (newBook, newShelf) => {
-		//console.log(book.id, currentShelf);
+		console.log('currentShelf', newShelf);
 		BooksAPI.update(newBook, newShelf)
 			.then((shelf) => {
 				const { books } = this.state;
 				//set shelf for new or updated book
 				newBook.shelf = newShelf;
-				console.log('shelf', shelf, 'newShelf', newShelf);
-				//get list of books without updated or new book
-				let updatedBooks = books.filter((book) => (book.id !== newShelf.id));
-				//add book to array, and set new state
-				updatedBooks.push(newBook);
 
-				this.setState((currentState) => ({
-					books: currentState.books.concat(newBook)
+				//add book to array, and set new state
+				this.setState((prevState) => ({
+					//remove duplicate book.id in array by filtering
+					//(book) => (book.id !== newShelf.id) ? books.concat(newBook) : false
+					books: prevState.books.filter((book) => (book.id !== newShelf.id) ? books.concat(newBook) : false)
 				}));
 			})
 	};
