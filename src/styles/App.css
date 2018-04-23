@@ -11,3 +11,4 @@
 /* components */
 @import "../components/SelectShelf/_selectshelf.scss";
 @import "../components/Book/_book.scss";
+@import "../components/Search/_search.scss";

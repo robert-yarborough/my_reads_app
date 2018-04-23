@@ -1,0 +1,25 @@
+.search_panel {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  box-shadow: 0 10px 20px rgba(0,0,0,.19), 0 0 6px rgba(0,0,0,.23);
+}
+
+.close_search {
+  display: block;
+  top: 20px;
+  left: 15px;
+  width: 50px;
+  height: 53px;
+  background: #fff;
+  background-image: url(/static/media/arrow-back.20e8847d.svg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: 28px;
+  font-size: 0;
+}

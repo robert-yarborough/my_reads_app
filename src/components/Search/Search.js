@@ -9,7 +9,7 @@ class Search extends Component{
 		super(props);
 		this.state = {
 			query: '',
-			newBooks: [],
+			addBooks: [],
 			searchErr: false
 		};
 
@@ -19,37 +19,32 @@ class Search extends Component{
 	updateQuery = (query) => {
 		BooksAPI.search(query, 20)
 			.then((books) => ({
-				newBooks: books.length > 0 ? this.setState({newBooks: books, searchErr: false}) : this.setState({newBooks: [], searchErr: true})
+				addBooks: books.length > 0 ? this.setState({addBooks: books, searchErr: false}) : this.setState({addBooks: [], searchErr: true})
 			})).catch((event) => (console.log(event)));
-		if (query === ''){
-			console.log('empty query');
-			this.setState(() => ({
-				newBooks: [],
-				searchErr: false
-			}))
-		}
 	};
 
 
 
 	render(){
-		const { newBooks, query, searchErr } = this.state;
+		const { addBooks, searchErr } = this.state;
 		const { books, onUpdate } = this.props;
 		return (
-			<div className='search-panel'>
-				<Link className="close-search"  to="/">Close</Link>
-				<div className='search'>
-					<input placeholder='Search by Title or Author'
-						   onChange={(event) => this.updateQuery(event.target.value)}/>
+			<div className='section group'>
+				<div className='search_panel'>
+					<Link className="close_search"  to="/">Close</Link>
+					<div className='col span_10_of_12 search'>
+						<input placeholder='Search by Title or Author'
+							   onChange={(event) => this.updateQuery(event.target.value)}/>
+					</div>
 				</div>
-				<div className='search-results'>
-					{ newBooks.length > 0 && (
+				<div className='col span_12_of_12 search-results'>
+					{ addBooks.length > 0 && (
 						<div>
 							<div className=''>
-								<h3>Search returned { newBooks.length } books </h3>
+								<h3>Search returned { addBooks.length } books </h3>
 							</div>
 							<ol className="books-grid">
-								{newBooks.map((book) => (
+								{addBooks.map((book) => (
 									<Book
 										book={ book }
 										books={ books }
