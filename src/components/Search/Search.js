@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Book from './Book';
-import * as BooksAPI from '../api/BooksAPI';
+import Book from '../Book/Book';
+import * as BooksAPI from '../../api/BooksAPI';
 
 
 class Search extends Component{

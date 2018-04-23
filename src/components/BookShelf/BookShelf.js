@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import Book from './Book';
-
+import Book from '../Book/Book';
 
 class BookShelf extends Component{
 	render(){
 		const { books, onUpdate } = this.props;
 		return (
-			<div>
+			<div className='section group'>
 				{books.map((book) => (
 					<Book
 						key={ book.id }

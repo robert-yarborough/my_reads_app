@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import * as BooksAPI from './api/BooksAPI';
-import BookList from './components/BookList';
-import Search from "./components/Search";
+import BookList from './components/BookList/BookList';
+import Search from "./components/Search/Search";
 
 
 
@@ -52,7 +52,9 @@ class App extends Component {
 			<div className='app'>
 				<Route exact path='/' render={() => (
 					<div className='homepage'>
-						<h1 className='span_2_of_12'>MyReads</h1>
+						<nav className='header'>
+							<h1 className='span_12_of_12'>MyReads</h1>
+						</nav>
 						<BookList books={books} onUpdate={this.onUpdate} />
 						<div className='search_btn'>
 							<Link to='/search'>Search</Link>
