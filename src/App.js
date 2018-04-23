@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
 import * as BooksAPI from './api/BooksAPI';
 import BookList from './components/BookList';
+import Search from "./components/Search";
 
 
 
@@ -47,11 +49,24 @@ class App extends Component {
 	render(){
 		const { books } = this.state;
 		return (
-			<div className=''>
-				<h1 className='span_2_of_12'>MyReads</h1>
-				<BookList books={books} onUpdate={this.onUpdate} />
-			</div>);
+			<div className='app'>
+				<Route exact path='/' render={() => (
+					<div className='homepage'>
+						<h1 className='span_2_of_12'>MyReads</h1>
+						<BookList books={books} onUpdate={this.onUpdate} />
+						<div className='search_btn'>
+							<Link to='/search'>Search</Link>
+						</div>
+					</div>
+				)} />
+				<Route exact path='/search' render={({ history }) => (
+					<Search books={books} onUpdate={this.onUpdate}/>
+				)}/>
+			</div>
+		)
 	}
+
+
 }
 
 export default App;
